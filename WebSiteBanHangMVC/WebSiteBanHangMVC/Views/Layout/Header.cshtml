@@ -1,0 +1,105 @@
+﻿
+@{
+    Layout = null;
+}
+
+<style>
+    .dropbtn {
+        color: white;
+        font-size: 16px;
+        border: none;
+    }
+
+    .dropdown {
+        position: relative;
+        display: inline-block;
+    }
+
+    .dropdown-content {
+        display: none;
+        position: absolute;
+        background-color: #f1f1f1;
+        min-width: 160px;
+        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+        z-index: 1;
+    }
+
+        .dropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+
+            .dropdown-content a:hover {
+                background-color: #ddd;
+            }
+
+    .dropdown:hover .dropdown-content {
+        display: block;
+    }
+
+    .dropdown:hover .dropbtn {
+        background-color: #3e8e41;
+    }
+</style>
+<header style="margin-bottom: 130px;">
+    <nav class="navbar navbar-expand-lg navbar-light shadow-sm fixed-top" style="background: rgba(0,0,0,0.6);padding: 18px 0px;">
+        <div class="container-fluid col-md-10">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+                <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+                    <li class="nav-item">
+                        <div class="logo_top" style=" margin-top: 8px;margin-right: 20px;"><a href="/"><span style="color:#f3f90f;" class="fa fa-home"></span></a></div>
+                    </li>
+                    <li class="nav-item active">
+                        <div class="dropdown">
+                            <a style="color: #f3f90f;" class="dropbtn nav-link" href="#" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Đồ Nam</a>
+                            <div class="dropdown-menu dropdown-content" aria-labelledby="dropdownMenuButton">
+                                <div class="row" style="width: 370px;">
+                                    @*@foreach (PhanLoaiSanPham danhMuc in danhMucSanPhamDoNam)
+                                    {
+                                        <div class="col-lg-6">
+                                            <a class="dropdown-item" href="/danh-sach-san-pham/@danhMuc.PhanLoaiSanPhamID">@danhMuc.TenPhanLoaiSanPham</a>
+                                            <hr style="margin-top: 0px;margin-bottom: 0px;">
+                                        </div>
+                                    }*@
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="nav-item active">
+                        <div class="dropdown">
+                            <a style="color: #f3f90f;" class="dropbtn nav-link" href="#" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Đồ Nữ</a>
+                            <div class="dropdown-menu dropdown-content" aria-labelledby="dropdownMenuButton">
+                                <div class="row" style="width: 370px;">
+                                    @*@foreach (PhanLoaiSanPham danhMuc in danhMucSanPhamDoNu)
+                                    {
+                                        <div class="col-lg-6">
+                                            <a class="dropdown-item" href="/danh-sach-san-pham/@danhMuc.PhanLoaiSanPhamID">@danhMuc.TenPhanLoaiSanPham</a>
+                                            <hr style="margin-top: 0px;margin-bottom: 0px;">
+                                        </div>
+                                    }*@
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="nav-item active">
+                        <a style="color: #f3f90f;" class="nav-link" href="#">Thông tin</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="logo_top"><a href="/"><img src="~/Images/logo.png" width="125" height="75" alt="Logo web30s" style="margin-right: 143px;"></a></div>
+            <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+                <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+                    
+                    <li class="nav-item">
+                        @*<a class="nav-link" href="/CheckOut"><i style="color: #f3f90f;" class="fas fa-shopping-cart"></i><span class="badge badge-pill badge-dark" style="top: -0.95rem;position: relative;">@soLuong</span></a>*@
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>
