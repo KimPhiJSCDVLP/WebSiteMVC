@@ -1,0 +1,95 @@
+﻿@using WebSiteBanHangMVC.Models;
+@{
+    ViewBag.Title = "Chi tiết sản phẩm";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var sanPham = ViewData["sanPham"] as SanPham;
+    var dsSanPhamLienQuan = ViewData["dsSanPhamLienQuan"] as List<SanPham>;
+    var ctSanPham = ViewData["ctSanPham"] as CTSanPham;
+    if (ctSanPham == null)
+    {
+        ctSanPham = new CTSanPham();
+    }
+    if (ctSanPham.AnhSanPham == null)
+    {
+        ctSanPham.AnhSanPham = "~/Images/ProductImage/a.jpg";
+    }
+    if (sanPham.AnhSanPham == null)
+    {
+        ctSanPham.AnhSanPham = "~/Images/ProductImage/a.jpg";
+    }
+}
+
+<div class="container" style="margin-top: 25px">
+    <div class="row">
+        <div class="col-lg-8">
+            <div class="row">
+                <div class="col-2">
+                    <img src="@Url.Content(ctSanPham.AnhSanPham)" style="width: 100%; object-fit:cover; opacity: 1;height: 120px;" />
+                </div>
+                <div class="col-10">
+                    <img src="@Url.Content(sanPham.AnhSanPham)" style="width: 100%; object-fit: cover;height: 650px;" />
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <div>
+                <h6> Tên sản phẩm: @sanPham.TenSanPham</h6>
+                <p style="color:red">Giá sản phẩm: @sanPham.GiaSanPham</p>
+            </div>
+            <div class="mb-3">
+                <a class="btn btn-dark" style="width: 100%" href="/CheckOut/AddItem/@sanPham.SanPhamID">Thêm vào giỏ</a>
+            </div>
+            <div>
+                <p>
+                    @sanPham.ThongTinSanPham
+                </p>
+            </div>
+            <div>
+                <h6><b>Chi tiết sản phẩm</b></h6>
+                <ul style="padding-left: 50px">
+                    <li>Số lượng còn lại: @ctSanPham.SoLuong .</li>
+                    <li>Giảm giá: @ctSanPham.GiamGia % .</li>
+                    <li>Chi tiết sản phẩm: @ctSanPham.ChiTiet .</li>
+                    <li>Thông tin thêm: @ctSanPham.GhiChu .</li>
+                </ul>
+            </div>
+            <div>
+                <p>*Ghi chú: @sanPham.GhiChu</p>
+            </div>
+            <div class="html_after_addtocart" style="background-color: #fff1dd; padding: 8px; border: 1px dotted red; font-size: 18px">
+                <b style="color: red">Hỗ trợ mua hàng:</b><br>
+                <b>Hotline:  0829338633/0355333555</b>
+            </div>
+        </div>
+    </div>
+    <div class="my-5">
+        <div class="row" style="margin-bottom: 20px">
+            <div class="col-lg-6">
+                <div class="text-left">
+                    <h4>Sản phẩm liên quan</h4>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            @foreach (SanPham sanPhamLienQuan in dsSanPhamLienQuan)
+            {
+                if (sanPhamLienQuan.AnhSanPham == null)
+                {
+                    sanPhamLienQuan.AnhSanPham = "~/Images/productImage/a.jpg";
+                }
+                <div class="col-lg-3">
+                    <a href="/chi-tiet-san-pham/@sanPhamLienQuan.SanPhamID" class="product-item">
+                        <div class="card" style="width: 100%;">
+                            <img src="@Url.Content(sanPhamLienQuan.AnhSanPham)" class="card-img-top" alt="" style="height: 300px;object-fit: cover;">
+                            <div class="card-body">
+                                <h6 class="card-title title-product" style="text-overflow: ellipsis;white-space: nowrap;overflow: hidden;">@sanPhamLienQuan.TenSanPham</h6>
+                                <small style="color: red;white-space: nowrap;">Giá sản phẩm: @(sanPhamLienQuan.GiaSanPham + "VNĐ")</small>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+

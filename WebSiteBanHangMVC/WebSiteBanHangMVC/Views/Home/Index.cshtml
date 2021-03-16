@@ -1,7 +1,8 @@
 ﻿@using WebSiteBanHangMVC.Models;
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
-    var lstDanhSachSanPham = ViewData["lstDanhSachSanPham"] as List<SanPham> ?? new List<SanPham>();
+    var lstDanhSachSanPhamDangHot = ViewData["lstDanhSachSanPhamDangHot"] as List<SanPham> ?? new List<SanPham>();
+    var lstDanhSachSanPhamDangMoi = ViewData["lstDanhSachSanPhamDangMoi"] as List<SanPham> ?? new List<SanPham>();
 }
 
 
@@ -135,7 +136,7 @@
                 </div>
             </div>
             <div class="row" style="justify-content: center;">
-                @foreach (var item in lstDanhSachSanPham)
+                @*@foreach (var item in lstDanhSachSanPhamDangMoi)
                 {
                     <div class="col-lg-3">
                         <a class="product-item">
@@ -148,8 +149,8 @@
                             </div>
                         </a>
                     </div>
-                }
-                @foreach (SanPham sanPham in lstDanhSachSanPham)
+                }*@
+                @foreach (SanPham sanPham in lstDanhSachSanPhamDangMoi)
                 {
                     if (sanPham.AnhSanPham == null)
                     {
@@ -183,7 +184,7 @@
                 </div>
             </div>
             <div class="row" style="justify-content: center;">
-                @foreach (SanPham sanPham in lstDanhSachSanPham)
+                @foreach (SanPham sanPham in lstDanhSachSanPhamDangHot)
                 {
                     if (sanPham.AnhSanPham == null)
                     {
