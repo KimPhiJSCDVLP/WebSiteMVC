@@ -13,9 +13,19 @@ namespace WebSiteBanHangMVC
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
             routes.MapRoute(
-                 name: "ChiTietSanPham",
-                 url: "chi-tiet-san-pham/{id}",
-                 defaults: new { controller = "ChiTietSanPham", action = "Index" }
+               name: "AddItem",
+               url: "them-sp-gio-hang/{id}",
+               defaults: new { controller = "GioHang", action = "AddItem" }
+            );
+            routes.MapRoute(
+               name: "AddItems",
+               url: "them-nhieu-sp-gio-hang/{ids}",
+               defaults: new { controller = "GioHang", action = "AddItems" }
+           );
+            routes.MapRoute(
+                name: "ChiTietSanPham",
+                url: "chi-tiet-san-pham/{id}",
+                defaults: new { controller = "ChiTietSanPham", action = "Index" }
              );
             routes.MapRoute(
                 name: "Default",

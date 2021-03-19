@@ -15,12 +15,11 @@ namespace WebSiteBanHangMVC.Controllers
             using (var db = new ApplicationDbContext())
             {
                 var sanPham = db.SanPhams.Include("CTSanPhams").Where(x => x.SanPhamID == id).FirstOrDefault();
-                var ctSanPham = db.CTSanPhams.SingleOrDefault(x => x.SanPhamID == id);
+                var ctSanPham = db.CTSanPhams.SingleOrDefault(x => x.SanPhamID == sanPham.SanPhamID);
                 var dsSanPhamLienQuan = new List<SanPham>();
                 if (sanPham.LoaiSanPhamID != null)
                 {
                     dsSanPhamLienQuan = db.SanPhams.Where(x => x.LoaiSanPhamID == sanPham.LoaiSanPhamID).Take(8).ToList();
-
                 }
                 if (sanPham == null)
                     return View("Error");

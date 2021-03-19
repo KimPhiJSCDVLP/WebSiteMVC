@@ -1,0 +1,78 @@
+﻿
+@using WebSiteBanHangMVC.Models;
+@{
+    ViewData["Title"] = "Cart";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@model GioHang
+<div class="container" style="min-height: 520px;">
+    <div>
+        <h5>Giỏ hàng của bạn (@Model.TongSLSanPham sản phẩm)</h5>
+    </div>
+    <div class="row">
+        <div class="col-9">
+            <div class="card">
+                <div class="card-body">
+                    @if (Model.Gio.Count <= 0)
+                    {
+                        <div class="text-center">
+                            <p style="margin:0">Không có sản phẩm</p>
+                        </div>
+                    }
+                    else
+                    {
+                        foreach (var item in Model.Gio)
+                        {
+                            <div class="row">
+                                <div class="col-2">
+                                    @{
+                                        var AnhSanPham = item.SanPham.AnhSanPham;
+                                        <img src="@Url.Content(AnhSanPham)" style="width: 100%;" class="img-responsive" alt="">
+                                    }
+                                </div>
+                                <div class="col-5">
+                                    <a style="font-size: 18px" href="/chi-tiet-san-pham/@item.SanPham.SanPhamID"><span>Tên sản phẩm: @item.SanPham.TenSanPham</span></a>
+                                    <p>Giá sản phẩm : @item.SanPham.GiaSanPham.Value VNĐ</p>
+                                </div>
+                                <div class="col-5">
+                                    <div class="row">
+                                        <div class="col-9">
+                                            @{
+                                                <div class="input-group input-group-sm mb-3">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text" id="inputGroup-sizing-sm">Số lượng</span>
+                                                    </div>
+                                                    <input onchange="capNhatSoLuong(@item.SanPham.SanPhamID)" type="number" step="1" class="form-control" data-step-max="10" aria-label="Small" aria-describedby="inputGroup-sizing-sm" min="0" max="120" id="@item.SanPham.SanPhamID" value="@item.SoLuongSp">
+                                                </div>
+                                            }
+                                        </div>
+                                        <div class="col-3">
+                                            <a class="btn btn-light" href="/CheckOut/RemoveAllItem/@item.SanPham.SanPhamID">Xóa</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+        <div class="col-3">
+            <div class="card mb-3">
+                <div class="card-body">
+                    <p style="margin:0">Thành tiền: @Model.TongTien VNĐ</p>
+                </div>
+            </div>
+            @if (Model.Gio.Count > 0)
+            {
+                <a class="btn btn-dark" href="/thanhtoan" style="width: 100%">Đặt hàng</a>
+            }
+        </div>
+    </div>
+    <script>
+        function capNhatSoLuong(SanPhamID) {
+            var soLuong = document.getElementById(SanPhamID).value;
+            window.location.href = '/GioHang/CapNhatSoLuong/' + SanPhamID + '?soLuong=' + soLuong;
+        }
+    </script>
+</div>

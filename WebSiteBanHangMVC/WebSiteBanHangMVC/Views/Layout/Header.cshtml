@@ -96,9 +96,52 @@
             <div class="logo_top"><a href="/"><img src="~/Images/logo.png" width="125" height="75" alt="Logo web30s" style="margin-right: 143px;"></a></div>
             <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
                 <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
-                    
+                    @{
+                        if (1 != null)
+                        {
+                            <li class="dropdown" style="margin-top:7px;">
+                                <a style="color: #f3f90f;" class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                    <i class="fa fa-user fa-fw"></i>
+                                </a>
+                                <ul class="dropdown-menu dropdown-user">
+                                    <li>
+                                        <a href="/Admin/Login/Index">Quản lý hệ thống</a>
+                                    </li>
+                                    <li class="divider"></li>
+                                    <li>
+                                        <a href="/Users/Logout"> Đăng xuất</a>
+                                    </li>
+                                    <li>
+                                        <a href="/Users/Register"> Đăng ký</a>
+                                    </li>
+                                </ul>
+                                <!-- /.dropdown-user -->
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="dropdown" style="margin-top:7px;">
+                                <a style="color: #f3f90f;" class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                    <i class="fa fa-user fa-fw"></i>
+                                </a>
+                                <ul class="dropdown-menu dropdown-user">
+                                    <li>
+                                        <a href="/Users/Login">Đăng nhập</a>
+                                    </li>
+                                    <li class="divider"></li>
+                                    <li>
+                                        <a href="/Admin/Login/Index">Quản lý hệ thống</a>
+                                    </li>
+                                    <li>
+                                        <a href="/Users/Register"> Đăng ký</a>
+                                    </li>
+                                </ul>
+                                <!-- /.dropdown-user -->
+                            </li>
+                        }
+                    }
                     <li class="nav-item">
-                        @*<a class="nav-link" href="/CheckOut"><i style="color: #f3f90f;" class="fas fa-shopping-cart"></i><span class="badge badge-pill badge-dark" style="top: -0.95rem;position: relative;">@soLuong</span></a>*@
+                        <a class="nav-link" href="/GioHang/Index"><i style="color: #f3f90f;" class="fas fa-shopping-cart"></i><span class="badge badge-pill badge-dark" style="top: -0.95rem;position: relative;">@ViewBag.SoLuong</span></a>
                     </li>
                 </ul>
             </div>
