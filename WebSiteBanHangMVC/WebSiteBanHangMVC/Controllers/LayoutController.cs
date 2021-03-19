@@ -27,12 +27,19 @@ namespace WebSiteBanHangMVC.Controllers
                                            select plsp;
                 ViewData["dsPhanLoaiSanPhamNam"] = dsPhanLoaiSanPhamNam.ToList();
                 ViewData["dsPhanLoaiSanPhamNu"] = dsPhanLoaiSanPhamNu.ToList();
+                GioHang sessionGioHang = Session["GioHang"] as GioHang;
+                //soLuong
+                if (sessionGioHang == null)
+                    ViewBag.SoLuong = 0;
+                else
+                    ViewBag.SoLuong = sessionGioHang.TongSLSanPham;
             }
             return View();
         }
 
         public ActionResult Footer()
         {
+            GioHang sessionGioHang = Session["GioHang"] as GioHang;
             return View();
         }
     }

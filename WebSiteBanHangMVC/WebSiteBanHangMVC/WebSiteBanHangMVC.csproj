@@ -197,6 +197,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\ChiTietSanPhamController.cs" />
+    <Compile Include="Controllers\GioHangController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LayoutController.cs" />
     <Compile Include="Global.asax.cs">
@@ -209,6 +210,7 @@
     <Compile Include="Models\DanhMucSanPham.cs" />
     <Compile Include="Models\DiaChiNhanHang.cs" />
     <Compile Include="Models\DonHang.cs" />
+    <Compile Include="Models\GioHang.cs" />
     <Compile Include="Models\KhachHang.cs" />
     <Compile Include="Models\LoaiDanhMucSanPham.cs" />
     <Compile Include="Models\LoaiThongSo.cs" />
@@ -2236,6 +2238,7 @@
     <Content Include="Views\Layout\Footer.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\ChiTietSanPham\Index.cshtml" />
+    <Content Include="Views\GioHang\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
