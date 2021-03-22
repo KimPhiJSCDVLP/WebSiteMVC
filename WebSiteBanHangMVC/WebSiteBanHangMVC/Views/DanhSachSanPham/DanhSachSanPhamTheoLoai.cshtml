@@ -1,0 +1,49 @@
+﻿
+@using WebSiteBanHangMVC.Models;
+@{
+    ViewBag.Title = "Danh sách sản phẩm";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var listSPTheoLoai = ViewData["listSPTheoLoai"] as List<SanPham>;
+    var tenLoaiSanPham = ViewBag.tenLoaiSanPham as string;
+}
+<div class="container" style="margin-top:20px">
+    <div class="col-md-12">
+        <div style="border-bottom: solid 1px #ddd; padding: 20px 0px;margin-bottom: 15px;">
+            <h4 style="margin-bottom: 0px">@tenLoaiSanPham</h4>
+        </div>
+        <div class="row" style="margin-bottom: 30px">
+            @if (listSPTheoLoai.Count() == 0)
+            {
+                <div>
+                    <p>
+                        Không có sản phẩm nào!
+                    </p>
+                </div>
+            }
+            else
+            {
+                foreach (SanPham sanPham in listSPTheoLoai)
+                {
+                    if (sanPham.AnhSanPham == null)
+                    {
+                        sanPham.AnhSanPham = "~/Images/productImage/a.jpg";
+                    }
+                    <div class="col-md-3">
+                        <a href="/chi-tiet-san-pham/@sanPham.SanPhamID" class="product-item">
+                            <div class="card" style="width: 100%">
+                                <img src="@Url.Content(sanPham.AnhSanPham)" class="card-img-top" alt="" style=" width: 100%; height: 250px;object-fit: cover;" />
+                                <div class="card-body">
+                                    <h6 class="card-title" style="text-overflow: ellipsis;white-space: nowrap;overflow: hidden;">@sanPham.TenSanPham</h6>
+                                    <small style="color:red">@sanPham.GiaSanPham VNĐ</small>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                }
+            }
+        </div>
+    </div>
+
+</div>
+
+

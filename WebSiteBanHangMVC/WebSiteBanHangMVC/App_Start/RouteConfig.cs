@@ -23,6 +23,11 @@ namespace WebSiteBanHangMVC
                defaults: new { controller = "GioHang", action = "AddItems" }
            );
             routes.MapRoute(
+              name: "DanhSachSanPham",
+              url: "danh-sach-san-pham-theo-loai/{CategoryID}",
+              defaults: new { controller = "DanhSachSanPham", action = "DanhSachSanPhamTheoLoai" }
+          );
+            routes.MapRoute(
                 name: "ChiTietSanPham",
                 url: "chi-tiet-san-pham/{id}",
                 defaults: new { controller = "ChiTietSanPham", action = "Index" }

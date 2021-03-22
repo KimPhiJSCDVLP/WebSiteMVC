@@ -61,10 +61,10 @@
                             <a style="color: #f3f90f;" class="dropbtn nav-link" href="#" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Đồ Nam</a>
                             <div class="dropdown-menu dropdown-content" aria-labelledby="dropdownMenuButton">
                                 <div class="row" style="width: 370px;">
-                                    @foreach (var item in dsPhanLoaiSanPhamNam)
+                                    @foreach (var danhMuc in dsPhanLoaiSanPhamNam)
                                     {
                                         <div class="col-lg-6">
-                                            <a class="dropdown-item" href="/">@item.TenPhanLoaiSanPham</a>
+                                            <a class="dropdown-item" href="/danh-sach-san-pham-theo-loai/@danhMuc.PhanLoaiSanPhamID">@danhMuc.TenPhanLoaiSanPham</a>
                                             <hr style="margin-top: 0px;margin-bottom: 0px;">
                                         </div>
                                     }
@@ -80,7 +80,7 @@
                                     @foreach (var danhMuc in dsPhanLoaiSanPhamNu)
                                     {
                                         <div class="col-lg-6">
-                                            <a class="dropdown-item" href="/">@danhMuc.TenPhanLoaiSanPham</a>
+                                            <a class="dropdown-item" href="/danh-sach-san-pham-theo-loai/@danhMuc.PhanLoaiSanPhamID">@danhMuc.TenPhanLoaiSanPham</a>
                                             <hr style="margin-top: 0px;margin-bottom: 0px;">
                                         </div>
                                     }
