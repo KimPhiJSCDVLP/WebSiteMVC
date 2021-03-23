@@ -7,7 +7,7 @@
 @model GioHang
 <div class="container" style="min-height: 520px;">
     <div>
-        <h5>Giỏ hàng của bạn (@Model.TongSLSanPham sản phẩm)</h5>
+        <h5>Giỏ hàng của bạn (@Model.TongSoLuong sản phẩm)</h5>
     </div>
     <div class="row">
         <div class="col-9">
@@ -42,12 +42,12 @@
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text" id="inputGroup-sizing-sm">Số lượng</span>
                                                     </div>
-                                                    <input onchange="capNhatSoLuong(@item.SanPham.SanPhamID)" type="number" step="1" class="form-control" data-step-max="10" aria-label="Small" aria-describedby="inputGroup-sizing-sm" min="0" max="120" id="@item.SanPham.SanPhamID" value="@item.SoLuongSp">
+                                                    <input onchange="capNhatSoLuong(@item.SanPham.SanPhamID)" type="number" step="1" class="form-control" data-step-max="10" aria-label="Small" aria-describedby="inputGroup-sizing-sm" min="0" max="120" id="@item.SanPham.SanPhamID" value="@item.SoLuong">
                                                 </div>
                                             }
                                         </div>
                                         <div class="col-3">
-                                            <a class="btn btn-light" href="/CheckOut/RemoveAllItem/@item.SanPham.SanPhamID">Xóa</a>
+                                            <a class="btn btn-light" href="/GioHang/RemoveAllItem/@item.SanPham.SanPhamID">Xóa</a>
                                         </div>
                                     </div>
                                 </div>
@@ -65,14 +65,14 @@
             </div>
             @if (Model.Gio.Count > 0)
             {
-                <a class="btn btn-dark" href="/thanhtoan" style="width: 100%">Đặt hàng</a>
+                <a class="btn btn-dark" href="/Payment/Index" style="width: 100%">Đặt hàng</a>
             }
         </div>
     </div>
     <script>
         function capNhatSoLuong(SanPhamID) {
             var soLuong = document.getElementById(SanPhamID).value;
-            window.location.href = '/GioHang/CapNhatSoLuong/' + SanPhamID + '?soLuong=' + soLuong;
+            window.location.href = '/GioHang/RemoveProDuct/' + SanPhamID + '?soLuong=' + soLuong;
         }
     </script>
 </div>

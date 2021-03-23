@@ -32,7 +32,7 @@ namespace WebSiteBanHangMVC.Controllers
                 if (sessionGioHang == null)
                     ViewBag.SoLuong = 0;
                 else
-                    ViewBag.SoLuong = sessionGioHang.TongSLSanPham;
+                    ViewBag.SoLuong = sessionGioHang.TongSoLuong;
             }
             return View();
         }

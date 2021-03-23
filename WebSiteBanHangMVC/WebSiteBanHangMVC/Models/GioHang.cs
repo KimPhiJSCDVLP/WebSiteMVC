@@ -7,134 +7,113 @@ namespace WebSiteBanHangMVC.Models
 {
     public class GioHang
     {
-        //SanPham
-        //SoLuong
-        private int _tongSLSanPham; // tong so luong san pham dang co trong gio
-        private int _tongSoTienCuaGioHang; // tong so tien cua gio hang
-        public class SLSanPham
+        private int _valueTongTien;
+        private int _valueTongSanpham;
+
+        public class LuongSanPham
         {
             public SanPham SanPham { get; set; }
-            public int SoLuongSp { get; set; }
-            public double TongTien { 
-                get {
-                    return SoLuongSp * (SanPham.GiaSanPham.HasValue ? SanPham.GiaSanPham.Value : 0);
+            public int SoLuong { get; set; }
+            public double TongTien
+            {
+                get
+                {
+                    return SanPham.GiaSanPham.Value * SoLuong;
                 }
                 private set { }
             }
-
-            public static bool CapNhatSoLuong(SanPham sanPham, List<SLSanPham> sanPhams, int? SoLuong = 1)
+            public static bool IsSanPham(List<LuongSanPham> lstLuongSanPham, SanPham sanPham)
             {
-                var slSanPham = sanPhams.FirstOrDefault(x => x.SanPham.SanPhamID == sanPham.SanPhamID);
-                if (slSanPham == null)
+                LuongSanPham lSanPham = lstLuongSanPham.FirstOrDefault(x => x.SanPham.SanPhamID == sanPham.SanPhamID);
+                if (lSanPham == null)
                 {
                     return false;
                 }
-                slSanPham.SoLuongSp = slSanPham.SoLuongSp + 1;
+                lSanPham.SoLuong = lSanPham.SoLuong + 1;
                 return true;
             }
-
-            public SLSanPham(int _soLuongSP, SanPham _sanPham)
+            public LuongSanPham(int soLuong, SanPham sanPham)
             {
-                SanPham = _sanPham;
-                SoLuongSp = _soLuongSP;
+                SoLuong = soLuong;
+                SanPham = sanPham;
             }
         }
-        public List<SLSanPham> Gio { get; set; }
-
-        public int TongSLSanPham
-        {
-            get
-            {
-                TinhSLSanPham();
-                return _tongSLSanPham;
-            }
-            private set { }
-        }
-
-        void TinhSLSanPham()
-        {
-            _tongSLSanPham = 0; // 
-            foreach (var item in Gio)
-            {
-                _tongSLSanPham += item.SoLuongSp;
-            }
-        }
-
+        public List<LuongSanPham> Gio { get; set; }
         public int TongTien
         {
             get
             {
-                TinhTongTien();
-                return _tongSoTienCuaGioHang;
+                this.TinhTong();
+                return _valueTongTien;
             }
             private set { }
         }
-        void TinhTongTien()
+
+        public int TongSoLuong
         {
-            _tongSoTienCuaGioHang = 0;
-            // do tat ca nhung san pham trong gio hang ra va tinh toan tien theo soluong
+            get
+            {
+                this.TinhTongSanPham();
+                return _valueTongSanpham;
+            }
+            private set { }
+        }
+
+        void TinhTongSanPham()
+        {
+            _valueTongSanpham = 0;
             foreach (var item in Gio)
             {
-                _tongSoTienCuaGioHang += (int)item.TongTien;
+                _valueTongSanpham += item.SoLuong;
             }
         }
 
         public GioHang()
         {
-            Gio = new List<SLSanPham>();
+            Gio = new List<LuongSanPham>();
             TongTien = 0;
         }
-
-        //AddItem
-        public void Add(SanPham sanPham) {
-            if (sanPham == null)
-                return;
-            try
+        void TinhTong()
+        {
+            _valueTongTien = 0;
+            foreach (var item in Gio)
             {
-                if (!SLSanPham.CapNhatSoLuong(sanPham, this.Gio)) { // kiem tra xem da co sanpham do chua
-                    // neu co roi t khong insert nua ma chi cap nhat so luong thoi
-                    this.Gio.Add(new SLSanPham(1, sanPham));
+                if (item.SanPham.GiaSanPham != null)
+                {
+                    _valueTongTien = _valueTongTien + ((int)item.SanPham.GiaSanPham.Value * item.SoLuong);
                 }
-                TinhTongTien(); // tinh tong tien
-            }
-            catch (Exception)
-            {
-                return;
             }
         }
-
-        //UpdateItem
-        public void ChangeAmount(int sanPhamId, int soLuong)
+        public void Add(SanPham sanPham)
         {
-            var slSanPham = this.Gio.FirstOrDefault(x => x.SanPham.SanPhamID == sanPhamId);
-            if (slSanPham != null) {
-                slSanPham.SoLuongSp = soLuong;
-                TinhTongTien();
-                return;
-            }
-        }
-
-
-        //RemoveItem
-        public void RemoveItem(int sanPhamId)
-        {
-            var slSanPham = this.Gio.FirstOrDefault(x => x.SanPham.SanPhamID == sanPhamId);
-            if (slSanPham != null)
-            {
-                this.Gio.Remove(slSanPham); // xoa san pham do khoi gio hang 
-                TinhTongTien(); // tinh lai tong tien
-                return;
-            }
-        }
-
-        //CapNhatSoLuong
-        public void UpdateSoLuong(int id, int soLuong)
-        {
-            var sanPham = this.Gio.FirstOrDefault(x => x.SanPham.SanPhamID == id).SanPham;
             if (sanPham == null)
                 return;
-            SLSanPham.CapNhatSoLuong(sanPham, this.Gio, soLuong);
-            TinhTongTien();
+            if (!LuongSanPham.IsSanPham(this.Gio, sanPham))
+            {
+                this.Gio.Add(new LuongSanPham(1, sanPham));
+            }
+            TinhTong();
+        }
+        public void ChangeAmount(int id, int soLuong)
+        {
+            var RemoveItem = this.Gio.FirstOrDefault(x => x.SanPham.SanPhamID == id);
+            if (RemoveItem == null) return;
+            if (soLuong == 0 || soLuong < 0)
+            {
+                this.Gio.Remove(RemoveItem);
+                TinhTong();
+                return;
+            }
+            RemoveItem.SoLuong = soLuong;
+            TinhTong();
+            return;
+        }
+        public void RemoveAll(int id)
+        {
+            var RemoveItem = this.Gio.FirstOrDefault(x => x.SanPham.SanPhamID == id);
+            if (RemoveItem == null) return;
+            this.Gio.Remove(RemoveItem);
+            TinhTong();
         }
     }
 }
