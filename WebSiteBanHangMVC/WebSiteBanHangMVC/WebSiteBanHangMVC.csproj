@@ -200,6 +200,10 @@
     <Compile Include="Controllers\GioHangController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LayoutController.cs" />
+    <Compile Include="Controllers\PaymentController.cs" />
+    <Compile Include="DAO\DonHangDAO.cs" />
+    <Compile Include="DAO\KhachHangDAO.cs" />
+    <Compile Include="DAO\SanPhamDonHangDAO.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -229,6 +233,7 @@
     <Compile Include="Models\UserGroup.cs" />
     <Compile Include="Models\XaPhuong.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utils\MailHelper.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="assets\admin\bower_components\bootstrap-social\.gitignore" />
@@ -2239,6 +2244,8 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\ChiTietSanPham\Index.cshtml" />
     <Content Include="Views\GioHang\Index.cshtml" />
+    <Content Include="Views\Payment\Index.cshtml" />
+    <Content Include="Views\Payment\XacNhanThanhToan.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
