@@ -15,49 +15,40 @@ namespace WebSiteBanHangMVC.Controllers
         {
             var sessionGioHang = Session["GioHang"];
             if (sessionGioHang == null)
-            {
                 sessionGioHang = new GioHang();
-            }
-            else
-            {
-                var lstSanPham = (sessionGioHang as GioHang).Gio.Distinct().ToList();
-            }
             return View(sessionGioHang);
         }
         public ActionResult AddItem(int id)
         {
-            // logic them 1 san pham vao gio hang
             using (var db = new ApplicationDbContext())
             {
                 GioHang sessionGioHang = Session["GioHang"] as GioHang;
                 if (sessionGioHang == null)
-                {
                     sessionGioHang = new GioHang();
-                }
-                SanPham sanPham = db.SanPhams.FirstOrDefault(x => x.SanPhamID == id);
-                if (sanPham != null)
-                {
-                    sessionGioHang.Add(sanPham);
-                }
+                SanPham sanPham = db.SanPhams.Where(x => x.SanPhamID == id).FirstOrDefault();
+                sessionGioHang.Add(sanPham);
                 Session["GioHang"] = sessionGioHang;
-                var transation = Request.UrlReferrer;
-                return RedirectToAction("Index", "ChiTietSanPham", new { id = transation.Segments.Last() });
-
+                var t = Request.UrlReferrer.AbsolutePath;
+                return RedirectToAction("Index", "ChiTietSanPham", new { id = Request.UrlReferrer.Segments.Last() });
             }
         }
-
-        public ActionResult AddItems(List<int> ids)
+        public ActionResult RemoveProDuct(int id, int soLuong)
         {
-            // logic them nhieu san pham vao gio hang
-            return View();
-        }
-
-        public ActionResult CapNhatSoLuong(int id, int soLuong)
-        {
-            // Cap nhat so luong cua san pham
             var sessionGioHang = Session["GioHang"] as GioHang;
-            sessionGioHang.UpdateSoLuong(id, soLuong);
+            sessionGioHang.ChangeAmount(id, soLuong);
             Session["GioHang"] = sessionGioHang;
+            return RedirectToAction("Index");
+        }
+        public ActionResult RemoveAllItem(int id)
+        {
+            var sessionGioHang = Session["GioHang"] as GioHang;
+            sessionGioHang.RemoveAll(id);
+            Session["GioHang"] = sessionGioHang;
+            return RedirectToAction("Index");
+        }
+        public ActionResult Total(int id)
+        {
+            var sessionGioHang = Session["GioHang"] as GioHang;
             return RedirectToAction("Index");
         }
     }

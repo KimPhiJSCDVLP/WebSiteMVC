@@ -1,0 +1,91 @@
+﻿@using WebSiteBanHangMVC.Models;
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@model GioHang
+
+<div class="container">
+    <div class="row nowrap">
+        <div class="col-8 col-lg-8 col-sm-8">
+            <div>
+                Thong tin cua gio hang  <span> Gio hang gom: @Model.TongSoLuong san pham</span>
+            </div>
+            <div>
+                <table class="table">
+                    <tr>
+                        <th>
+                            Ten san pham
+                        </th>
+                        <th>
+                            Gia san pham
+                        </th>
+                        <th>
+                            So Luong San Pham
+                        </th>
+                        <th>
+                            Thanh Tien
+                        </th>
+                    </tr>
+                    @foreach (var item in Model.Gio)
+                    {
+                        <tr>
+                            <td>
+                                @item.SanPham.TenSanPham
+                            </td>
+                            <td>
+                                @item.SanPham.GiaSanPham
+                            </td>
+                            <td>
+                                @item.SoLuong
+                            </td>
+                            <td>
+                                @item.TongTien
+                            </td>
+                        </tr>
+                    }
+                </table>
+            </div>
+            <div>
+                Tong tien cua don hang:  @Model.TongTien (vnd)
+            </div>
+            @*khoi nay de hien thi thong tin cua Don Hang voi cac san pham dang co trong gio hang*@
+        </div>
+        <div class="col-4 col-lg-4 col-sm-4">
+            @*Hien thi cho nguoi dung 1 form nhap lieu, de nhap thong tin khach hang*@
+            <p> Moi ban hoan thanh thong tin thanh toan</p>
+            <br />
+            <form action="/Payment/XacNhanThanhToan" method="post" target="_blank">
+                <div class="form-group">
+                    <label for="hoTen">Ho Ten: </label>
+                    <input class="form-control" required type="text" name="hoTen" id="hoTen" placeholder="Ho ten" />
+                </div>
+                <div class="form-group">
+                    <label for="email">Email: </label>
+                    <input class="form-control" required type="email" name="email" id="email" placeholder="Email" />
+                </div>
+                <div class="form-group">
+                    <label for="soDienThoai">So dien thoai: </label>
+                    <input class="form-control" required type="text" name="soDienThoai" id="soDienThoai" placeholder="So dien thoai" />
+                </div>
+                <div class="form-group">
+                    <label for="diaChi">Dia chi noi o: </label>
+                    <input class="form-control" required type="text" name="diaChi" id="diaChi" placeholder="Dia chi noi o" />
+                </div>
+                <div class="form-group">
+                    <label for="diaChiNhanHang">Dia chi nhan hang: </label>
+                    <input class="form-control" required type="text" name="diaChiNhanHang" id="diaChiNhanHang" placeholder="Dia chi nhan hang" />
+                </div>
+                <div class="form-group">
+                    <label for="ngayNhan">Ngay Nhan</label>
+                    <input class="form-control" required type="date" name="ngayNhan" id="ngayNhan" placeholder="Ngay Nhap" />
+                </div>
+                <div class="form-group">
+                    <label for="ghiChu">Ghi chu</label>
+                    <textarea rows="5" class="form-control" required name="ghiChu" id="ghiChu" placeholder="Ghi chu"></textarea>
+                </div>
+                <input style="width: 100%" class="btn btn-dark" type="submit" name="name" value="Xac nhan thanh toan" />
+            </form>
+        </div>
+    </div>
+</div>
