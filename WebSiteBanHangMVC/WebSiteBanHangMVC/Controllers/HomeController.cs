@@ -21,7 +21,7 @@ namespace WebSiteBanHangMVC.Controllers
                 // ViewData["tenDoiTuong"] = gia tri cua no;
             }
             // Add, Delete, FirstOfDefualt(), ToList(), Single, Take, Skip, OrderBy = > ....
-
+            //Test branch
             return View();
         }
     }
