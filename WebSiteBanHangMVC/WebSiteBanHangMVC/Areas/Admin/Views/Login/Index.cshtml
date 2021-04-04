@@ -1,5 +1,4 @@
-﻿
-@model  WebSiteBanHangMVC.Areas.Admin.Models.LoginModel
+﻿@model  WebSiteBanHangMVC.Areas.Admin.Models.LoginModel
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -24,14 +23,6 @@
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-    <style>
-        .label-styles {
-            padding-left: 0px;
-        }
-        .btn-block {
-            width: 85%;
-        }
-    </style>
 </head>
 <body class="abd">
     <div class="container">
@@ -45,29 +36,27 @@
                         @using (Html.BeginForm("Login", "Login", FormMethod.Post))
                         {
                             @Html.ValidationSummary(false, "", new { @class = "text-danger" });
-                        <fieldset>
-                            @Html.LabelFor(model => model.UserName, htmlAttributes: new { @class = "control-label col-md-12 label-styles" })
-                            <div class="form-group">
-                                @Html.TextBoxFor(model => model.UserName, new { required = true, @class = "form-control col-md-12", @autofocus = "autofocus" })
-                                @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
-                            </div>
-                            @Html.LabelFor(model => model.UserName, htmlAttributes: new { @class = "control-label col-md-12 label-styles" })
-                            <div class="form-group">
-                                @Html.PasswordFor(model => model.Password, new { required = true, @class = "form-control col-md-12" })
-                                @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
-                            </div>
-                            <!-- Change this to a button or input when using this as a form -->
-                            <div class="row">
-                                <div class="col-md-12" style="margin-top: 15px;">
-                                    <button type="submit" class="btn btn-sm btn-success btn-block">Đăng nhập</button>
+                            <fieldset>
+                                <div class="form-group">
+                                    @Html.TextBoxFor(model => model.UserName, new { required = true, @class = "form-control", @autofocus = "autofocus" })
                                 </div>
-                                @*<div class="col-md-4">
-                @Html.ActionLink("Đăng ký", "DangKy", "DangKyTaiKhoan")
-            </div>*@
-                                <div class="col-md-2">
+                                <div class="form-group">
+                                    @Html.PasswordFor(model => model.Password, new { required = true, @class = "form-control" })
                                 </div>
-                            </div>
-                        </fieldset>
+                                <!-- Change this to a button or input when using this as a form -->
+                                <div class="row">
+                                    <div class="col-md-2">
+                                    </div>
+                                    <div class="col-md-4">
+                                        <button type="submit" class="btn btn-sm btn-success btn-block">Đăng nhập</button>
+                                    </div>
+                                    <div class="col-md-4">
+                                        @Html.ActionLink("Đăng ký", "DangKy", "DangKyTaiKhoan")
+                                    </div>
+                                    <div class="col-md-2">
+                                    </div>
+                                </div>
+                            </fieldset>
                         }
                     </div>
                 </div>

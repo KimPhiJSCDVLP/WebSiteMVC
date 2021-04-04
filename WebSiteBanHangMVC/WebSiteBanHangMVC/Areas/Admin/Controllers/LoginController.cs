@@ -4,6 +4,8 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using WebSiteBanHangMVC.Areas.Admin.Models;
+using WebSiteBanHangMVC.Common;
+using WebSiteBanHangMVC.DAO;
 using WebSiteBanHangMVC.Models;
 using WebSiteBanHangMVC.Utils;
 
@@ -16,51 +18,53 @@ namespace WebSiteBanHangMVC.Areas.Admin.Controllers
         {
             return View();
         }
-        [HttpPost]
-        public ActionResult Login(LoginModel loginModel)
+
+        public ActionResult Logout(LoginModel model)
         {
-            var sessionLogin = Session["LoginModel"] as UserLogin;
-            if (!ModelState.IsValid)
+            Session[CommonConstant.USER_SESSION] = null;
+            return RedirectToAction("Index");
+        }
+        public ActionResult Login(LoginModel model)
+        {
+            if (ModelState.IsValid)
             {
-                return View("_Error");
-            }
-            else
-            {
-                if (loginModel != null)
+                var dao = new UserDAO();
+                var result = dao.Login(model.UserName, Encryptor.MD5Hash(model.Password), true);
+                if (result == 1)
                 {
-                    using (var db = new ApplicationDbContext())
-                    {
-                        var user = db.Users.FirstOrDefault(x => x.UserName.Equals(loginModel.UserName));
-                        if (user != null)
-                        {
-                            var passwordHash = Encryptor.MD5Hash(loginModel.Password);
-                            if (passwordHash.Equals(user.PasswordSalt))
-                            {
-                                var userLogin = new UserLogin();
-                                userLogin.UserId = user.UserID;
-                                userLogin.UserName = user.UserName;
-                                if (sessionLogin == null)
-                                {
-                                    sessionLogin = new UserLogin();
-                                }
-                                sessionLogin = userLogin;
-                                return RedirectToAction("Index", "Admin");
-                            }
-                        }
-                        else
-                        {
-                            return View("Index");
-                        }
-                    }
+                    var user = dao.GetByID(model.UserName);
+                    var userSession = new UserLogin();
+                    userSession.UserName = user.UserName;
+                    userSession.UserID = user.UserID;
+                    userSession.GroupID = user.GroupID;
+                    //var listCredentials = dao.GetListCredential(model.UserName);
+                    var listCredentials = new object();
+                    Session.Add(CommonConstant.SESSION_CREDENTIALS, listCredentials);
+                    Session.Add(CommonConstant.USER_SESSION, userSession);
+                    return RedirectToAction("Index", "Admin", userSession);
+                }
+                else if (result == 0)
+                {
+                    ModelState.AddModelError("", "Tài khoản không tồn tại.");
+                }
+                else if (result == -1)
+                {
+                    ModelState.AddModelError("", "Tài khoản đang bị khoá.");
+                }
+                else if (result == -2)
+                {
+                    ModelState.AddModelError("", "Mật khẩu không đúng.");
+                }
+                else if (result == -3)
+                {
+                    ModelState.AddModelError("", "Tài khoản của bạn không có quyền đăng nhập.");
+                }
+                else
+                {
+                    ModelState.AddModelError("", "đăng nhập không đúng.");
                 }
             }
             return View("Index");
-        }
-
-        public ActionResult Logout(LoginModel loginModel)
-        {
-            Session["LoginModel"] = null;
-            return RedirectToAction("Index");
         }
     }
 }

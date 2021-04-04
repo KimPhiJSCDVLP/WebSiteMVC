@@ -45,7 +45,7 @@ namespace WebSiteBanHangMVC.Controllers
                 kh.SoDienThoai = Convert.ToInt32(Request.Form["soDienThoai"]);
                 kh.Email = Request.Form["email"];
                 kh.DiaChi = Request.Form["diaChi"];
-                int khacHangID = KhachHangDAO.Instance.insertKhacHang(kh);
+                int khacHangID = KhachHangDAO.Instance.insertKhachHang(kh);
                 // get danh sach nhan vien: (where lanhanvienkiemduyetdonhang,(12h00 -> 5h00) calamviec < nam trong khoang nay > DateTime.Now) NhanVienID
                 if (khacHangID != 0)
                 {
